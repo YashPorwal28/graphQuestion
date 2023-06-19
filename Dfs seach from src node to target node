@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+ 
+
+// void dfs(int node){
+// 		visited[node] = true;
+// 		for( auto &x:g[node]){
+// 			if(!visited[x]){
+// 				dfs(x);
+// 			}
+// 		}
+// 	}
+
+bool dfs ( int src , int target , map<int ,vector<int>>&g , vector<bool>&visited){
+	
+	if(visited[target]){
+		return true;
+	}
+
+	visited[src] = true;
+	for( auto &x:g[src]){
+		if(!visited[x]){
+			if(dfs(x , target, g ,visited)){
+				return true;
+			}
+		}
+	}
+
+	return false;
+
+	}
+ 
+int main() {
+#ifndef ONLINE_JUDGE
+	freopen("Error.txt", "w", stderr);
+#endif
+ 
+ vector<list<int>> myvector;
+
+	vector<int> A{1,1,2};
+	int B = 1;
+	int C = 2;
+	
+	map< int , vector<int>> g;
+	for( int i = 0;i<A.size();i++){
+		g[A[i]].push_back(i+1);
+	}
+
+	for( auto &x:g){
+		cout << x.first <<  " ";
+		for ( auto &y : x.second){
+				cout << y << " ";
+		}
+		cout << endl;
+	}
+ 
+	cout << endl;
+
+	vector<bool> visited (A.size()+1, false);
+
+
+
+	cout << dfs(C , B , g , visited);
+
+	cout << endl;
+
+
+	for( const auto&x:visited){
+		cout << x << " ";
+	}
+ 
+ 
+}
